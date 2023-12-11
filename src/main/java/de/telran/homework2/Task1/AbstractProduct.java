@@ -1,4 +1,4 @@
-package de.telran.homework2;
+package de.telran.homework2.Task1;
 
 public abstract class AbstractProduct {
 
