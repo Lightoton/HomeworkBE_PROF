@@ -17,6 +17,14 @@ public class Account {
     private Currency currency;
     private boolean isDebit;
     private BigDecimal balance;
+    public void setDebit(boolean debit) {
+        isDebit = debit;
+    }
+
+    public boolean isDebit() {
+        return isDebit;
+    }
+
 
     @Override
     public String toString() {
@@ -56,6 +64,7 @@ class Empl {
         return "Empl{" +
                 "name='" + name + '\'' +
                 ", surName='" + surName + '\'' +
+                ", account='" + Arrays.toString(account) + '\'' +
                 ", citizenship=" + citizenship +
                 '}';
     }
@@ -77,5 +86,6 @@ enum Currency {
 enum Citezenship {
     GERMANY,
     CANADA,
-    ISRAEL
+    ISRAEL;
+
 }

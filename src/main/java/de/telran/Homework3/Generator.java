@@ -1,18 +1,22 @@
 package de.telran.Homework3;
 
+import com.github.javafaker.Company;
 import com.github.javafaker.Faker;
 import com.github.javafaker.Name;
+import com.github.javafaker.Number;
 
 import java.math.BigDecimal;
 import java.util.Random;
 
 public class Generator {
     private static final Random RANDOM = new Random();
-//Account
+
+    //Account
     public static Account[] accountsGenerator(int countAccount) {
         Account[] accounts = new Account[countAccount];
         for (int i = 0; i < countAccount; i++) {
-            accounts[i] = new Account(accountNumber(),randomCountryGen(),randomCurrencyGen(),isDebitRandomGen(),generateRandomBalance());
+            accounts[i] = new Account(accountNumber(), randomCountryGen(), randomCurrencyGen(), isDebitRandomGen(),
+                    generateRandomBalance());
         }
         return accounts;
     }
@@ -27,7 +31,6 @@ public class Generator {
         return countries[i];
 
     }
-
 
 
     private static Currency randomCurrencyGen() {
@@ -46,25 +49,27 @@ public class Generator {
     }
 
     private static BigDecimal generateRandomBalance() {
-        long randomBalance = RANDOM.nextLong();
-         return BigDecimal.valueOf(randomBalance);
+        Number fakeBalance = Faker.instance().number();
+        return BigDecimal.valueOf(fakeBalance.randomNumber());
     }
 
 //EMP
 
-    public static Empl[] emplsGenerate(int emplCount){
+    public static Empl[] emplsGenerate(int emplCount, Account[] accounts) {
         Empl[] empls = new Empl[emplCount];
         for (int i = 0; i < emplCount; i++) {
-            empls[i] = new Empl(getRandomName(),getRandomSurName(),accountsGenerator(emplCount),randomCitezenshipGen());
+            empls[i] = new Empl(getRandomName(), getRandomSurName(), accounts,
+                    randomCitezenshipGen());
         }
         return empls;
     }
 
-    private static String getRandomName(){
+    private static String getRandomName() {
         Name name = Faker.instance().name();
         return name.firstName();
     }
-    private static String getRandomSurName(){
+
+    private static String getRandomSurName() {
         Name name = Faker.instance().name();
         return name.lastName();
     }
@@ -77,12 +82,23 @@ public class Generator {
     }
 
     //Branch
-//    public static Branch[] genRandomBranch(Empl[] empls, int branchCount){
-//        Branch[] branches = new Branch[branchCount];
-//        for (int i = 0; i < branchCount; i++) {
-//
-//        }
-//    }
+    public static Branch[] genArrBranch(Empl[] empls, int branchCount) {
+        Branch[] branches = new Branch[branchCount];
+        for (int i = 0; i < branchCount; i++) {
+            branches[i] = new Branch(empls);
+        }
+        return branches;
+    }
+
+    //Bank
+    public static Bank[] genArrBank(Branch[] branches,int bankCount){
+        Bank[] banks = new Bank[bankCount];
+        for (int i = 0; i < bankCount; i++) {
+            banks[i] = new Bank(branches);
+        }
+        return banks;
+    }
+
 }
 
 
