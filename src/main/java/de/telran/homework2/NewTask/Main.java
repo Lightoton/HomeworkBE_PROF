@@ -4,9 +4,9 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(Generator.bookGenerator(3)));
-        Library[] libraries = Generator.libraryGen();
-        System.out.println(Arrays.toString(libraries));
+//        System.out.println(Arrays.toString(Generator.bookGenerator(3)));
+//        Library[] libraries = Generator.libraryGen();
+//        System.out.println(Arrays.toString(libraries));
 //        Handler.printAllAddresses(libraries);
 //        Handler.printTotalBookCount(libraries);
 //        Handler.printAllBookNames(libraries);
@@ -21,11 +21,11 @@ public class Main {
 //        Handler.printAuthorsAndTheirBookCounts(libraries);//МЕТОД НЕ ДОДЕЛАН
 //        Handler.printMostCommonBookCondition(libraries);
 //        Handler.printLibrariesWithoutDamagedBooks(libraries);
-        Handler.printUniqueIssueYears(libraries);
-        Handler.printBooksSortedByIssueYear(libraries);
-        Handler.printCountOfLibrariesWithAtLeastOneEBook(libraries);
+//        Handler.printUniqueIssueYears(libraries);
+//        Handler.printBooksSortedByIssueYear(libraries);
+//        Handler.printCountOfLibrariesWithAtLeastOneEBook(libraries);
 //        Handler.printBooksContainingWord(libraries,"the");
-        Handler.printAuthorsWithOldestBooks(libraries);
-        Handler.printLibrariesWithAllEBooks(libraries);
+//        Handler.printAuthorsWithOldestBooks(libraries);
+//        Handler.printLibrariesWithAllEBooks(libraries);
     }
 }
