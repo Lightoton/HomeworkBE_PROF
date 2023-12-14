@@ -1,7 +1,10 @@
 package de.telran.Homework3;
 
+
+
 import java.math.BigDecimal;
 import java.util.Arrays;
+
 
 public class Handler {
 
@@ -55,9 +58,9 @@ public class Handler {
         Empl[] newEmployeesArr = new Empl[100];
         int indexNewAc = 0;
 
-        for (int i = 0; i < employees.length; i++) {
-            if (employees[i].getCitizenship().name().equals(country.name())) {
-                newEmployeesArr[indexNewAc] = employees[i];
+        for (Empl employee : employees) {
+            if (employee.getCitizenship().name().equals(country.name())) {
+                newEmployeesArr[indexNewAc] = employee;
                 indexNewAc++;
             }
         }
@@ -71,10 +74,10 @@ public class Handler {
     public static Account[] filterAccountsByBalance(Account[] accounts, BigDecimal minBalance) {
         int countFilter = 0;
         Account[] newAccounts = new Account[accounts.length];
-        for (int i = 0; i < accounts.length; i++) {
-            if (accounts[i].getBalance().compareTo(minBalance) > 0) {
+        for (Account account : accounts) {
+            if (account.getBalance().compareTo(minBalance) > 0) {
                 for (int j = 0; j < newAccounts.length; j++) {
-                    newAccounts[j] = accounts[i];
+                    newAccounts[j] = account;
                     countFilter++;
                 }
             }
@@ -111,46 +114,183 @@ public class Handler {
         }
         return arrAccountTypes;
     }
-//     * Сортировка сотрудников по общему балансу
+
+    //     * Сортировка сотрудников по общему балансу пока до конца не работает
 //     *
 //     * Описание: Сортирует массив сотрудников по общему балансу их счетов в порядке убывания.
 //     * Сигнатура: public Empl[] sortEmployeesByTotalBalance(Empl[] employees)
+    public static Empl[] sortEmployeesByTotalBalance(Empl[] employees) {
+        Empl[] newEmployeesArr = Arrays.copyOf(employees, employees.length);
+        for (int i = 0; i < employees.length; i++) {
+            for (int j = 0; j < employees.length - i - 1; j++) {
+                BigDecimal totalBalance1 = sumBalances(employees[j].getAccount());
+                BigDecimal totalBalance2 = sumBalances(employees[j + 1].getAccount());
 
-//     * Определение наиболее распространенной валюты среди счетов
+                if (totalBalance1.compareTo(totalBalance2) < 0) {
+                    Empl temp = newEmployeesArr[j];
+                    newEmployeesArr[j] = newEmployeesArr[j + 1];
+                    newEmployeesArr[j + 1] = temp;
+                }
+            }
+        }
+        return newEmployeesArr;
+    }
+
+    //     * Определение наиболее распространенной валюты среди счетов
 //     *
 //     * Описание: Определяет валюту, которая встречается чаще всего среди всех счетов.
 //     * Сигнатура: public Currency findMostCommonCurrency(Account[] accounts)
+    public static Currency findMostCommonCurrency(Account[] accounts) {
+        int countEURO = 0;
+        int countSHEKEL = 0;
+        int countDOLLAR = 0;
+        Currency currency;
+        for (Account account : accounts) {
+            if (account.getCurrency().equals(Currency.EURO)) {
+                countEURO += 1;
+            } else if (account.getCurrency().equals(Currency.DOLLAR)) {
+                countDOLLAR += 1;
+            } else {
+                countSHEKEL += 1;
+            }
+        }
+        if (countEURO > countSHEKEL && countEURO > countDOLLAR) {
+            currency = Currency.EURO;
+        } else if (countDOLLAR > countEURO && countDOLLAR > countSHEKEL) {
+            currency = Currency.DOLLAR;
+        } else {
+            currency = Currency.SHEKEL;
+        }
+        return currency;
+    }
 
-//     *
+    //     *
 //     * Перевод средств между счетами одного сотрудника
 //     * Описание: Выполняет перевод средств между счетами в пределах списка счетов одного сотрудника.
 //     * Сигнатура: public boolean transferBetweenAccounts(Account[] accounts, int fromIndex, int toIndex, BigDecimal
 //     amount)
+    public static boolean transferBetweenAccounts(Account[] accounts, int fromIndex, int toIndex, BigDecimal amount) {
+        boolean res = false;
+        if (toIndex < accounts.length && fromIndex < accounts.length) {
+            BigDecimal tempFrom = accounts[fromIndex - 1].getBalance();
+            BigDecimal tempTo = accounts[toIndex - 1].getBalance();
+            accounts[fromIndex - 1].setBalance(accounts[fromIndex - 1].getBalance().subtract(amount));
+            accounts[toIndex - 1].setBalance(accounts[toIndex - 1].getBalance().add(amount));
+            if (tempFrom.compareTo(accounts[fromIndex - 1].getBalance()) > 0 && tempTo.compareTo(accounts[toIndex - 1].getBalance()) < 0) {
+                res = true;
+            }
+        }
+        return res;
+    }
 
-//     * Подсчет среднего баланса счетов по каждому отделению
+    //     * Подсчет среднего баланса счетов по каждому отделению
 //     *
 //     * Описание: Рассчитывает средний баланс счетов для каждого отделения банка.
 //     * Сигнатура: public BigDecimal[] averageBalancePerBranch(Branch[] branches)
+    public static BigDecimal[] averageBalancePerBranch(Branch[] branches) {
+        BigDecimal[] resBalancePerBranches = new BigDecimal[branches.length];
+        for (int i = 0; i < branches.length; i++) {
+            BigDecimal resBalancePerBranch = BigDecimal.ZERO;
+            int countEmployees = 0;
+            for (Empl empl : branches[i].getEmployees()) {
+                BigDecimal sumBalance = BigDecimal.ZERO;
+                for (Account account : empl.getAccount()) {
+                    sumBalance = sumBalance.add(account.getBalance());
+                }
+                BigDecimal averageBalance = BigDecimal.ZERO;
+                if (!BigDecimal.ZERO.equals(sumBalance)) {
+                    BigDecimal countAccount = new BigDecimal(empl.getAccount().length);
+                    averageBalance = sumBalance.divide(countAccount, 2, BigDecimal.ROUND_HALF_UP);
+                    countEmployees++;
+                }
+                resBalancePerBranch = resBalancePerBranch.add(averageBalance);
+            }
+            if (countEmployees != 0) {
+                resBalancePerBranch = resBalancePerBranch.divide(BigDecimal.valueOf(countEmployees), 2,
+                        BigDecimal.ROUND_HALF_UP);
+            }
+            resBalancePerBranches[i] = resBalancePerBranch;
+        }
+        return resBalancePerBranches;
+    }
 
-//     * Определение отделения с наибольшим количеством сотрудников-иностранцев
+    //     * Определение отделения с наибольшим количеством сотрудников-иностранцев
 //     *
 //     * Описание: Находит отделение с максимальным числом сотрудников не из страны, где расположен банк.
 //     * Сигнатура: public Branch findBranchWithMostForeignEmployees(Branch[] branches, Country bankCountry)
+    public static Branch findBranchWithMostForeignEmployees(Branch[] branches, Country bankCountry) {
+        Branch branchWithMostForeignEmployees = null;
+        int maxForeignEmployees = 0;
+        for (Branch branch : branches) {
+            int foreignEmployeesCount = 0;
+            for (Empl empl : branch.getEmployees()) {
+                for (Account account : empl.getAccount()) {
+                    if (account.getCountry() != bankCountry) {
+                        foreignEmployeesCount++;
+                    }
+                }
+            }
+            if (foreignEmployeesCount > maxForeignEmployees) {
+                maxForeignEmployees = foreignEmployeesCount;
+                branchWithMostForeignEmployees = branch;
+            }
+        }
+        return branchWithMostForeignEmployees;
+    }
 
-//     * Генерация отчета о счетах с низким балансом
+    //     * Генерация отчета о счетах с низким балансом
 //     *
 //     * Описание: Создает список счетов, баланс которых ниже определенной суммы.
 //     * Сигнатура: public Account[] reportLowBalanceAccounts(Account[] accounts, BigDecimal threshold)
+    public static Account[] reportLowBalanceAccounts(Account[] accounts, BigDecimal threshold) {
+        int countFilter = 0;
+        Account[] newAccounts = new Account[accounts.length];
+        for (Account account : accounts) {
+            if (account.getBalance().compareTo(threshold) < 0) {
+                newAccounts[countFilter] = account;
+                countFilter++;
+            }
+        }
+        return Arrays.copyOf(newAccounts, countFilter);
+    }
 
-//     * Создание карты сотрудников по гражданству
+    //     * Создание карты сотрудников по гражданству
 //     *
 //     * Описание: Считает суммарный баланс счетов по всем отделениям банка.
 //     * Сигнатура: public BigDecimal calculateTotalBalanceForBank(Branch[] branches)
+    public static BigDecimal calculateTotalBalanceForBank(Branch[] branches) {
+        BigDecimal resBalance = BigDecimal.ZERO;
+        for (Branch branch : branches) {
+            for (Empl empl : branch.getEmployees()) {
+                for (Account account : empl.getAccount()) {
+                    resBalance = resBalance.add(account.getBalance());
+                }
+            }
+        }
+        return resBalance;
+    }
+
 //     * Определение сотрудника с наибольшим количеством счетов
 
-//     *
+    //     *
 //     * Описание: Находит сотрудника с наибольшим количеством открытых счетов.
 //     * Сигнатура: public Empl findEmployeeWithMostAccounts(Empl[] employees)
+    public static Empl findEmployeeWithMostAccounts(Empl[] employees) {
+        Empl employeeWithMostAccounts = null;
+        int maxAccount = 0;
+        for (Empl empl : employees) {
+            int countAccount = 0;
+            for (Account account : empl.getAccount()) {
+                countAccount++;
+            }
+            if (maxAccount<countAccount){
+                maxAccount = countAccount;
+                employeeWithMostAccounts = empl;
+            }
+        }
+        return employeeWithMostAccounts;
+    }
+
 //     * Анализ распределения типов валют среди всех счетов
 
 //     *
