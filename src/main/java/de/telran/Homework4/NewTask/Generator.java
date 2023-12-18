@@ -1,7 +1,9 @@
-package de.telran.homework2.NewTask;
+package de.telran.Homework4.NewTask;
 
 import com.github.javafaker.Faker;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Generator {
@@ -21,15 +23,15 @@ public class Generator {
         return isEbook[index];
     }
 
-    public static Book[] bookGenerator(int bookNumbers) {
-        Book[] books = new Book[bookNumbers];
-        for (int i = 0; i < bookNumbers; i++) {
+    public static List<Book> bookGenerator(int bookNumbers) {
+        List<Book> books = new ArrayList<>(bookNumbers);
+        for (int i = 0; i <bookNumbers ; i++) {
             boolean isEB = isEBOOKRandomGen();
-            books[i] = new Book(FAKER.book().author(),
+            books.add(new Book(FAKER.book().author(),
                     FAKER.book().title(),
                     bookIssueDate(),
                     randomConditionGen(),
-                    isEB);
+                    isEB));
 
         }
         return books;
@@ -40,11 +42,11 @@ public class Generator {
         return RANDOM.nextInt(2022 - 1900) + 1900;
     }
 
-    public static Library[] libraryGen(){
-        Library[] libraries = new Library[5];
-        for (int i = 0; i < libraries.length; i++) {
+    public static List<Library> libraryGen(int numLib){
+        List<Library> libraries = new ArrayList<>(numLib);
+        for (int i = 0; i < numLib; i++) {
             int bookNum = RANDOM.nextInt(21);
-            libraries[i] = new Library(FAKER.address().streetAddress(),bookNum,bookGenerator(bookNum));
+            libraries.add(new Library(FAKER.address().streetAddress(),bookNum,bookGenerator(bookNum))) ;
         }
         return libraries;
     }

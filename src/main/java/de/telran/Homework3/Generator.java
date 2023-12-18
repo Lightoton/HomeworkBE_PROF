@@ -55,10 +55,11 @@ public class Generator {
 
 //EMP
 
-    public static Empl[] emplsGenerate(int emplCount, Account[] accounts) {
+    public static Empl[] emplsGenerate(int emplCount) {
         Empl[] empls = new Empl[emplCount];
         for (int i = 0; i < emplCount; i++) {
-            empls[i] = new Empl(getRandomName(), getRandomSurName(), accounts,
+            int numAccount = RANDOM.nextInt(5);
+            empls[i] = new Empl(getRandomName(), getRandomSurName(), accountsGenerator(numAccount),
                     randomCitezenshipGen());
         }
         return empls;
@@ -82,10 +83,11 @@ public class Generator {
     }
 
     //Branch
-    public static Branch[] genArrBranch(Empl[] empls, int branchCount) {
+    public static Branch[] genArrBranch(int branchCount) {
         Branch[] branches = new Branch[branchCount];
         for (int i = 0; i < branchCount; i++) {
-            branches[i] = new Branch(empls);
+            int numEmpl = RANDOM.nextInt(5);
+            branches[i] = new Branch(emplsGenerate(numEmpl));
         }
         return branches;
     }
