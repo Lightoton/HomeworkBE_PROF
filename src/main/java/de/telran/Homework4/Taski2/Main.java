@@ -32,14 +32,14 @@ public class Main {
 //        List<Character> charList = Arrays.asList('a', 'b', 'c', 'd', 'e');
 //        System.out.println(UtilsList.getReverseOrderCharacters(charList));
 
-        List<List<Integer>> testLists = Arrays.asList(
-                Arrays.asList(1, 2, 3, 4, 1, 5),
-                Arrays.asList(5, 6, 7, 8, 9, 6),
-                Arrays.asList(10, 11, 12, 13, 14, 13),
-                Arrays.asList(15, 16, 17, 18, 19, 20),
-                Arrays.asList(21, 22, 23, 24, 25)
-        );
-        UtilsList.printRepeatingLists(testLists);
+//        List<List<Integer>> testLists = Arrays.asList(
+//                Arrays.asList(1, 2, 3, 4, 1, 5),
+//                Arrays.asList(5, 6, 7, 8, 9, 6),
+//                Arrays.asList(10, 11, 12, 13, 14, 13),
+//                Arrays.asList(15, 16, 17, 18, 19, 20),
+//                Arrays.asList(21, 22, 23, 24, 25)
+//        );
+//        UtilsList.printRepeatingLists(testLists);
 
 //        List<String> stringList = Arrays.asList("apple", "banana", "orange", "kiwi", "grape", "pear", "peach", "melon"
 //                , "cherry", "strawberry");
