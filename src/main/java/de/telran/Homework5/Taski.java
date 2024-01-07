@@ -84,15 +84,15 @@ public class Taski {
 //        System.out.println("\nРезультат после обработки методом getSimpleMap:");
 //        System.out.println(result);
 
-//        Map<String, Integer> map1 = new HashMap<>();
-//        map1.put("A", 1);
-//        map1.put("B", 2);
-//
-//        Map<Integer, List<String>> map2 = new HashMap<>();
-//        map2.put(1, Arrays.asList("One", "Uno", "A"));
-//        map2.put(2, Arrays.asList("Two", "Dos", "C"));
-//
-//        printTwoMap(map1, map2);
+        Map<String, Integer> map1 = new HashMap<>();
+        map1.put("A", 1);
+        map1.put("B", 2);
+
+        Map<Integer, List<String>> map2 = new HashMap<>();
+        map2.put(1, Arrays.asList("One", "Uno", "A"));
+        map2.put(2, Arrays.asList("Two", "Dos", "C"));
+
+        printTwoMap(map1, map2);
 
     }
 
