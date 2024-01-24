@@ -1,0 +1,162 @@
+Задача 1: Напишите метод, который принимает список списков целых чисел
+и преобразует его в один список++
+    public List<Integer> flattenListOfLists(List<List<Integer>> listOfLists) {
+
+    }
+
+Задача 2: Напишите метод, который преобразует список объектов с вложенными списками в один список всех вложенных элементов.
+class User {
+    private String name;
+    private List<String> skills;
+}
+
+public List<String> getAllSkills(List<User> users) {
+}
+
+Задача 3: Напишите метод, который объединяет строки из списка объектов.
+class Book {
+    private String title;
+    private List<String> authors;
+}
+
+public List<String> getAuthorsTitles(List<Book> books) {
+}
+
+Задача 4: Напишите метод, который преобразует Map в список значений.
+public List<String> flattenMap(Map<String, List<String>> map) {
+}
+
+Задача 5: Напишите метод, который принимает список списков и фильтрует все четные числа, а затем умножает их на 2.
+public List<Integer> processAndFilter(List<List<Integer>> listOfLists) {
+}
+
+Задача 6: Преобразование и фильтрация объектов в списках
+Задание: Напишите метод, который фильтрует список объектов по некоторому условию,
+а затем извлекает и объединяет определённые атрибуты этих объектов в один список.
+class Employee {
+    private String department;
+    private List<String> languages;
+}
+
+public List<String> getLanguagesFromDepartment(List<Employee> employees, String department) {
+}
+
+Задача 7: Напишите метод, который принимает список списков списков чисел и преобразует его в один список чисел.
+public List<Integer> flattenDeepListOfLists(List<List<List<Integer>>> deepList) {
+}
+
+Задача 8: Напишите метод, который принимает список объектов с вложенными коллекциями,
+сортирует вложенные элементы и возвращает отсортированный список всех элементов.
+class Project {
+    private String name;
+    private List<String> tasks;
+}
+
+public List<String> getSortedTasks(List<Project> projects) {
+}
+
+Задача 9: Напишите метод, который преобразует карту, где ключи - это строки, а значения -
+списки объектов, в один список уникальных строк, извлечённых из атрибутов объектов.
+class Product {
+    private String category;
+    private String name;
+}
+
+public List<String> getUniqueProductNames(Map<String, List<Product>> categoryMap) {
+}
+
+Задача 10: Напишите метод, который объединяет данные из нескольких списков и
+преобразует их в один список, применяя к каждому элементу определённую функцию.
+public List<String> combineAndTransform(List<Integer> list1, List<Double> list2, Function<Number, String> transformer) {
+
+}
+
+**
+
+Задача 11: Обработка вложенных структур с условными фильтрами
+Задание: Напишите метод, который обрабатывает вложенные структуры данных
+(например мапы, содержащих списки), фильтрует элементы по условию и объединяет их в один список.
+class Order {
+    private String customerName;
+    private List<Item> items;
+}
+
+class Item {
+    private String name;
+    private double price;
+}
+
+public List<Item> getItemsByCustomerName(List<Order> orders, String customerName) {
+}
+
+Задача 12: Напишите метод, который объединяет данные из вложенных коллекций разных объектов и считает сумму некоторого числового атрибута.
+class Department {
+    private String name;
+    private List<Employee> employees;
+}
+
+class Employee {
+    private String name;
+    private double salary;
+}
+
+public double getTotalSalaryByDepartment(List<Department> departments, String departmentName) {
+}
+
+Задача 13: Напишите метод, который принимает несколько списков различных типов данных, преобразует их и объединяет в один список.
+public List<String> combineAndTransformComplex(List<Integer> integers, List<String> strings, List<Double> doubles) {
+}
+
+***
+Задача 14:  Напишите метод, который обрабатывает список объектов, содержащих другие объекты с коллекциями.
+Ваша задача - вычислить среднее значение некоторого числового поля для каждого уникального ключа.
+class Company {
+    private String name;
+    private List<Department> departments;
+}
+
+class Department {
+    private String name;
+    private List<Employee> employees;
+}
+
+public Map<String, Double> averageSalaryByCompany(List<Company> companies) {
+}
+
+Задача 15: Напишите метод, который анализирует данные из нескольких различных коллекций,
+соединяет их и выводит результаты, соответствующие определённым критериям.
+class Product {
+    private String category;
+    private double price;
+}
+
+class Order {
+    private String customerName;
+    private List<Product> products;
+}
+
+public Map<String, List<String>> highValueProductsByCustomer(List<Order> orders, double threshold) {
+}
+
+!!!!!
+Задача 16:
+Каждая школа содержит информацию о своих классах и студентах в этих классах.
+Задача состоит в том, чтобы вычислить средний балл по каждому предмету среди студентов,
+чей средний балл по всем предметам выше определённого порога (например, 8.0 из 10).
+class School {
+    private String name;
+    private Map<String, List<Student>> studentsByClass; Ключ - название класса
+}
+
+class Student {
+    private String name;
+    private List<Subject> subjects;
+}
+
+class Subject {
+    private String name;
+    private double score;
+}
+
+public Map<String, Map<String, Double>> averageScoreBySubjectForTopStudents(List<School> schools) {
+}
