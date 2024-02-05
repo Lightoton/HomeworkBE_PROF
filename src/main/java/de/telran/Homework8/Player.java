@@ -12,4 +12,5 @@ import lombok.ToString;
 public class Player {
     private String name;
     private int age;
+    BankCard bankCard;
 }

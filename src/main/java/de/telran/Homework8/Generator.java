@@ -1,6 +1,7 @@
 package de.telran.Homework8;
 
 import com.github.javafaker.Faker;
+import de.telran.Homework13.task2.CardGen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,8 @@ public class Generator {
     private static Player[] getPlayers(int minAge, int maxAge) {
         Player[] players = new Player[Team.numberOfPlayers];
         for (int i = 0; i < players.length; i++) {
-            players[i] = new Player(FAKER.name().name(), RANDOM.nextInt(maxAge - minAge) + minAge);
+            players[i] = new Player(FAKER.name().name(), RANDOM.nextInt(maxAge - minAge) + minAge,
+                    new BankCard(CardGen.genUniqueCardNum(),CardGen.getCardDate(),CardGen.getCVV()));
         }
         return players;
     }
